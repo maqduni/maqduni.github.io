@@ -2,19 +2,21 @@
 menu:
   Home: /
   Archives: /archives
+  About: /about
 rss: /atom.xml
 
 # Content
 excerpt_link: Read More
 fancybox: true
+recent_posts_limits: 5
 
 # Sidebar
 sidebar: right
 widgets:
 - category
-- tag
+#- tag
 - tagcloud
-- archive
+#- archive
 - recent_posts
 
 # display widgets at the bottom of index pages (pagination == 2)

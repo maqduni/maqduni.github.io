@@ -1,10 +1,12 @@
 ---
-title: Deploying SVG files in a Webpack JS bundle
+title: Test article 1
 date: 2019-08-11 11:08:38
 tags:
-- post
-- Fight
-- Shocking
+- svg
+- webpack
+- sass
+excerpt: First sentence of the article here
+more: First sentence of the article here
 ---
 Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 
@@ -17,6 +19,8 @@ $ hexo new "My New Post"
 ```
 
 More info: [Writing](https://hexo.io/docs/writing.html)
+
+<!-- more -->
 
 ### Run server
 
