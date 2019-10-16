@@ -3,7 +3,9 @@ menu:
   Home: /
   Archives: /archives
   About: /about
-rss: /atom.xml
+#rss: /atom.xml
+github: https://github.com/maqduni
+linkedin: https://www.linkedin.com/in/iskandar-rafiev-720b3a39/
 
 # Content
 excerpt_link: Read More

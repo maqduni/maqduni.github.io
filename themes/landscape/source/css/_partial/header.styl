@@ -89,6 +89,13 @@ $nav-link
   position: relative
   cursor: pointer
 
+.nav-icon-large
+  @extend .nav-icon
+  font-size: nav-icon-size
+  width: nav-icon-size
+  height: nav-icon-size
+  padding: 15px 15px
+
 .main-nav-link
   @extend $nav-link
   font-weight: 300
@@ -114,6 +121,14 @@ $nav-link
 #nav-search-btn
   &:before
     content: "\f002"
+
+.github-icon
+  &:before
+    content: "\f09b"
+
+.linkedin-icon
+  &:before
+    content: "\f08c"
 
 #search-form-wrap
   position: absolute
