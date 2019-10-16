@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Iskandar Rafiev's blog
-subtitle: Software solutions that I couldn't find anywhere
+title: Details that Matter
+subtitle: Solutions to interesting problems, that many tend to overlook
 description:
-keywords: tech, .net, c#, javascript, typescript, php, docker, react, vuejs, angularjs, angular
+keywords: tech, .net, c#, javascript, typescript, php, docker, react, vuejs, angularjs, angular, software, development
 author: Iskandar Rafiev
 language: en
 timezone: America/New_York
