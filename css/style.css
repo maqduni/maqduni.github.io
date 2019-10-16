@@ -192,7 +192,6 @@ body {
 .archive-year,
 .widget-title {
   text-decoration: none;
-  text-transform: uppercase;
   letter-spacing: 2px;
   color: #999;
   margin-bottom: 1em;
@@ -362,6 +361,11 @@ body {
   left: 0;
   margin-top: -20px;
 }
+@media screen and (max-width: 479px) {
+  #header-title {
+    margin-top: -30px;
+  }
+}
 #logo,
 #subtitle {
   text-decoration: none;
@@ -413,7 +417,7 @@ body {
   font-size: 14px;
   width: 14px;
   height: 14px;
-  padding: 20px 15px;
+  padding: 23px 15px;
   position: relative;
   cursor: pointer;
 }
@@ -421,7 +425,7 @@ body {
   font-size: 30px;
   width: 30px;
   height: 30px;
-  padding: 15px 15px;
+  padding: 15px 10px;
 }
 .main-nav-link {
   font-weight: 300;
@@ -445,7 +449,7 @@ body {
 }
 #sub-nav {
   float: right;
-  margin-right: -15px;
+  margin-right: -10px;
 }
 #nav-rss-link:before {
   content: "\f09e";
@@ -1319,10 +1323,9 @@ pre .javascript .function {
 .widget {
   color: #777;
   text-shadow: 0 1px #fff;
-  background: #ddd;
-  -webkit-box-shadow: 0 -1px 4px #ccc inset;
-  box-shadow: 0 -1px 4px #ccc inset;
-  border: 1px solid #ccc;
+  background: #fff;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  box-shadow: 1px 2px 3px #ddd;
   padding: 15px;
   border-radius: 3px;
 }
