@@ -387,6 +387,7 @@ body {
   margin-left: -15px;
 }
 .nav-icon,
+.nav-icon-large,
 .main-nav-link {
   float: left;
   color: #fff;
@@ -401,10 +402,12 @@ body {
   padding: 20px 15px;
 }
 .nav-icon:hover,
+.nav-icon-large:hover,
 .main-nav-link:hover {
   opacity: 1;
 }
-.nav-icon {
+.nav-icon,
+.nav-icon-large {
   font-family: FontAwesome;
   text-align: center;
   font-size: 14px;
@@ -413,6 +416,12 @@ body {
   padding: 20px 15px;
   position: relative;
   cursor: pointer;
+}
+.nav-icon-large {
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+  padding: 15px 15px;
 }
 .main-nav-link {
   font-weight: 300;
@@ -443,6 +452,12 @@ body {
 }
 #nav-search-btn:before {
   content: "\f002";
+}
+.github-icon:before {
+  content: "\f09b";
+}
+.linkedin-icon:before {
+  content: "\f08c";
 }
 #search-form-wrap {
   position: absolute;
@@ -1076,20 +1091,20 @@ a.article-title:hover {
 }
 #footer {
   background: #262a30;
-  padding: 30px 0;
+  padding: 10px 0;
   border-top: 1px solid #ddd;
   color: #999;
 }
 #footer a {
   color: #258fb8;
-  text-decoration: none;
-}
-#footer a:hover {
-  text-decoration: underline;
 }
 #footer-info {
-  line-height: 1.6em;
-  font-size: 0.85em;
+  line-height: 30px;
+}
+.footer-copyright {
+  height: 30px;
+  padding: 15px 15px;
+  float: left;
 }
 .article-entry pre,
 .article-entry .highlight {
