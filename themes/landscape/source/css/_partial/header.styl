@@ -40,6 +40,8 @@
   top: 50%
   left: 0
   margin-top: logo-size * -0.5
+  @media mq-mobile
+    margin-top: -30px;
 
 $logo-text
   text-decoration: none
@@ -85,7 +87,7 @@ $nav-link
   font-size: font-size
   width: font-size
   height: font-size
-  padding: 20px 15px
+  padding: 23px 15px
   position: relative
   cursor: pointer
 
@@ -94,7 +96,7 @@ $nav-link
   font-size: nav-icon-size
   width: nav-icon-size
   height: nav-icon-size
-  padding: 15px 15px
+  padding: 15px 10px
 
 .main-nav-link
   @extend $nav-link
@@ -112,7 +114,7 @@ $nav-link
 
 #sub-nav
   float: right
-  margin-right: -15px
+  margin-right: -10px
 
 #nav-rss-link
   &:before
