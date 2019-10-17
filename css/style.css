@@ -192,13 +192,13 @@ body {
 .archive-year,
 .widget-title {
   text-decoration: none;
+  text-transform: uppercase;
   letter-spacing: 2px;
   color: #999;
   margin-bottom: 1em;
   margin-left: 5px;
   line-height: 1em;
   text-shadow: 0 1px #fff;
-  font-weight: bold;
 }
 .article-inner,
 .archive-article-inner {
@@ -1110,7 +1110,7 @@ a.article-title:hover {
 }
 .footer-copyright {
   height: 30px;
-  padding: 15px 15px;
+  padding: 15px 15px 15px 0;
   float: left;
 }
 .article-entry pre,

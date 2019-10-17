@@ -25,11 +25,20 @@
     });
   });
 
-  $('.search-form-input').on('blur', function(){
+  $('.search-form-input').on('blur', function(event){
+    if (event.relatedTarget && event.relatedTarget.className === 'search-form-submit') {
+      event.currentTarget.form.submit();
+    }
+
     startSearchAnim();
     $searchWrap.removeClass('on');
     stopSearchAnim();
   });
+
+  // $('.search-form').on('submit', function(event) {
+  //   console.log(event);
+  //   return false;
+  // });
 
   // Share
   $('body').on('click', function(){
