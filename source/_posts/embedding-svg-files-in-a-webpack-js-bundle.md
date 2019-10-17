@@ -8,6 +8,10 @@ tags:
 - vazhaju
 ---
 
+[1]: https://vazhaju.com
+[2]: https://css-tricks.com/css-sprites/#article-header-id-0
+[3]: https://github.com/maqduni/maqduni.github.io/tree/source/samples/embedding-svg-files-in-a-webpack-js-bundle
+
 ## The cause
 
 Recent issues with the internet in Tajikistan made me think about the loading speed of my online dictionary [Vazhaju (Вожаҷӯ / واژه‌جو)][1]. As soon as the Tajik government announced that they would raise mobile internet prices I rushed to check the loading speed of the site. The speed was high, the site had been tailored for mobile devices, was served using GZIP compression and practically didn't have anything unnecessary. 
@@ -166,7 +170,3 @@ The source code is available on [my GitHub page][3].
 
 ## Summary
 You just saw how to include SVG sprites in JS bundles, without extra files, without extra HTTP calls, and without implementing a custom cache. Although this approach requires a certain level of understanding of Webpack, SVG sprites, and the module resolution system of NodeJS, it makes an optimal alternative to existing methods, which implicitly impose certain constraints on the way they can be used which may cause a totally unnecessary comlication of the architecture of your project. Never limit yourself by the existing tools if you have an opportunity to create your own.
-
-[1]: https://vazhaju.com
-[2]: https://css-tricks.com/css-sprites/#article-header-id-0
-[3]: https://github.com/maqduni/maqduni.github.io/projects/embedding-svg-files-in-a-webpack-js-bundle
