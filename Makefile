@@ -1,3 +1,7 @@
+# Environment variables
+ENV_FILE = ./.env
+include $(ENV_FILE)
+
 # Commands
 test:
 	echo "Hexo blog"
@@ -20,4 +24,6 @@ dev_serve_public:
 
 deploy:
 	hexo clean
-	hexo generate --deploy
+	hexo generate
+	echo $(CNAME) >> docs/CNAME
+	hexo deploy
