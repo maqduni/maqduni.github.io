@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Embedding SVG files in a JS bundle using Webpack | Details that Matter - Iskandar Rafiev's Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="The causeRecent issues with the internet in Tajikistan made me think about the loading speed of my online dictionary Vazhaju (Вожаҷӯ / واژه‌جو). As soon as the Tajik government announced that they wou">
+<meta name="keywords" content="webpack,webpack loader,svg sprite,vazhaju">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Embedding SVG files in a JS bundle using Webpack">
+<meta property="og:url" content="http://maqduni.github.io/2019/07/16/embedding-svg-files-in-a-webpack-js-bundle/index.html">
+<meta property="og:site_name" content="Details that Matter">
+<meta property="og:description" content="The causeRecent issues with the internet in Tajikistan made me think about the loading speed of my online dictionary Vazhaju (Вожаҷӯ / واژه‌جو). As soon as the Tajik government announced that they wou">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-17T04:04:31.190Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Embedding SVG files in a JS bundle using Webpack">
+<meta name="twitter:description" content="The causeRecent issues with the internet in Tajikistan made me think about the loading speed of my online dictionary Vazhaju (Вожаҷӯ / واژه‌جو). As soon as the Tajik government announced that they wou">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Details that Matter</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Solutions to interesting problems, that many tend to overlook</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <a class="linkedin-icon nav-icon" href="https://www.linkedin.com/in/iskandar-rafiev-720b3a39/" title="My LinkedIn page"></a>
+        <a class="stackoverflow-icon nav-icon" href="https://stackoverflow.com/users/5053866/maqduni" title="My Stack Overflow page"></a>
+        <a class="github-icon nav-icon-large" href="https://github.com/maqduni" title="Fork me on GitHub"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://maqduni.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-embedding-svg-files-in-a-webpack-js-bundle" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/16/embedding-svg-files-in-a-webpack-js-bundle/" class="article-date">
+  <time datetime="2019-07-17T00:44:43.000Z" itemprop="datePublished">2019-07-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Embedding SVG files in a JS bundle using Webpack
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="The-cause"><a href="#The-cause" class="headerlink" title="The cause"></a>The cause</h2><p>Recent issues with the internet in Tajikistan made me think about the loading speed of my online dictionary <a href="https://vazhaju.com" target="_blank" rel="noopener">Vazhaju (Вожаҷӯ / واژه‌جو)</a>. As soon as the Tajik government announced that they would raise mobile internet prices I rushed to check the loading speed of the site. The speed was high, the site had been tailored for mobile devices, was served using GZIP compression and practically didn’t have anything unnecessary. </p>
+<p>But then I noticed an interesting detail, the actual size of the content didn’t exceed 7kb, whereas every page in it’s compressed form took at least 12kb, and the uncompressed form took around 24kb. Not such a tiny size for so little content, isn’t it. This size inflation was caused by the SVG images that were added in their entirety to the main template on each page serving.</p>
+<h3 id="A-little-bit-on-the-architecture"><a href="#A-little-bit-on-the-architecture" class="headerlink" title="A little bit on the architecture"></a>A little bit on the architecture</h3><p>The front end is structured as a set of independent micro applications, aka micro front ends. There’s one for public users, one for admins, one for editors, etc, therefore,</p>
+<ol>
+<li>Not all of the applications needed the entire SVG package, each used only a few images.</li>
+<li>I could take advantage of the browser cache, load the images only once for each of my micro applications and simply serve them from there.</li>
+</ol>
+<p>The solution was quite obvious, generate individual <a href="https://css-tricks.com/css-sprites/#article-header-id-0" target="_blank" rel="noopener">SVG sprite</a> for each micro front end, embed it in it’s JS bundle, and add the sprite to the DOM on page load.</p>
+<h2 id="Search-for-an-existing-solution"><a href="#Search-for-an-existing-solution" class="headerlink" title="Search for an existing solution"></a>Search for an existing solution</h2><p>I embarked on a quite lengthy search for Webpack loaders and plugins that could solve my problem. To my surprise existing loaders wouldn’t allow me to create an individual file per each micro application. They could only gather all of the SVG images used in all of the bundles and combine them into one gigantic SVG sprite <code>oneGiganticSprite.svg</code>, that all of the micro applications had to use. It was exactly what I was trying to avoid.</p>
+<p>Even if I managed to build individual sprites, I still had to somehow load it. There were recommendations to asynchronously load the sprite file on page load and add it to the DOM. This approach has three huge downsides:</p>
+<ol>
+<li>Need for an HTTP library, which means increase of the size of my bundle</li>
+<li>Extra HTTP call</li>
+<li>Implementation of custom caching</li>
+</ol>
+<p>All this could be avoided by simply including the sprites in the JS bundle and all of this would be taken care of by the built-in browser functionality.</p>
+<p>Finally I gave up looking for third party solutions and decided to write my own. I needed write a custom Webpack SVG loader, to gather the necessary SVG images and add them to individual JS bundles.</p>
+<p>To my luck it turned out to be very simple.</p>
+<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><p>Before you continue, I recommend you to look at the <a href="https://github.com/maqduni/maqduni.github.io/tree/source/samples/embedding-svg-files-in-a-webpack-js-bundle" target="_blank" rel="noopener">sample project</a> containing all of the provided here source code.</p>
+<h3 id="Custom-Webpack-loader"><a href="#Custom-Webpack-loader" class="headerlink" title="Custom Webpack loader"></a>Custom Webpack loader</h3><p><code>svgSpriteLoader.js</code> - The loader almost entirely copies the Rawloader except for the last line</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// svgSpriteLoader.js</span></span><br><span class="line"><span class="keyword">const</span> &#123; getOptions &#125; = <span class="built_in">require</span>(<span class="string">'loader-utils'</span>);</span><br><span class="line"><span class="keyword">const</span> validateOptions = <span class="built_in">require</span>(<span class="string">'schema-utils'</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> schema = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="title">svgSpriteLoader</span>(<span class="params">source</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> options = getOptions(<span class="keyword">this</span>) || &#123;&#125;;</span><br><span class="line">    validateOptions(schema, options, <span class="string">'Svg Sprite Loader'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> loaderContext = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">const</span> &#123; resourcePath &#125; = loaderContext;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> json = <span class="built_in">JSON</span>.stringify(source)</span><br><span class="line">        .replace(<span class="regexp">/\u2028/g</span>, <span class="string">'\\u2028'</span>)</span><br><span class="line">        .replace(<span class="regexp">/\u2029/g</span>, <span class="string">'\\u2029'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">`export default &#123; fileName: '<span class="subst">$&#123;path.basename(resourcePath)&#125;</span>', svg: <span class="subst">$&#123;json&#125;</span> &#125;`</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>it simply loads and SVG file and returns the name of the file and it’s content in the following form</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    fileName: <span class="string">'someImage.svg'</span>,</span><br><span class="line">    svg: <span class="string">'&lt;svg&gt;&lt;/svg&gt;'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>webpack.config</code> - In order to use the loader it has to be specified in the Webpack configuration file as follows</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config</span></span><br><span class="line">&#123;</span><br><span class="line">    resolveLoader: &#123;</span><br><span class="line">        alias: &#123;</span><br><span class="line">            svgSprite: path.resolve(<span class="string">'./webpack/svgSpriteLoader.js'</span>),</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Loading-and-embedding-of-the-SVG-images-loaded-via-the-custom-loader"><a href="#Loading-and-embedding-of-the-SVG-images-loaded-via-the-custom-loader" class="headerlink" title="Loading and embedding of the SVG images loaded via the custom loader"></a>Loading and embedding of the SVG images loaded via the custom loader</h3><p>From now on I’ll be using helper methods that I wrote to build the SVG sprite and add it to the DOM on page load.</p>
+<p><code>addSvgImagesAsSprites.js</code> - Take the loaded SVG image objects, build a sprite element and add it to the DOM</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// addSvgImagesAsSprites.js</span></span><br><span class="line"><span class="keyword">import</span> htmlToElement <span class="keyword">from</span> <span class="string">"./htmlToElement"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">addSvgImagesAsSprites</span>(<span class="params">images, idPrefix = <span class="string">''</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> spriteContainerHtml = <span class="string">`&lt;svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"&gt;</span></span><br><span class="line"><span class="string">&lt;defs&gt;&lt;/defs&gt;</span></span><br><span class="line"><span class="string">&lt;/svg&gt;`</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> $spriteContainer = htmlToElement(spriteContainerHtml);</span><br><span class="line">    <span class="keyword">const</span> $defs = $spriteContainer.getElementsByTagName(<span class="string">'defs'</span>)[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    images.forEach(<span class="function"><span class="params">image</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> id = <span class="string">`<span class="subst">$&#123;idPrefix&#125;</span><span class="subst">$&#123;image.fileName.replace(<span class="string">'.svg'</span>, <span class="string">''</span>)&#125;</span>`</span>;</span><br><span class="line">        <span class="keyword">const</span> $el = htmlToElement(image.svg);</span><br><span class="line">        $el.setAttribute(<span class="string">'id'</span>, id);</span><br><span class="line"></span><br><span class="line">        $defs.appendChild($el);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">document</span>.body.insertAdjacentElement(<span class="string">'afterbegin'</span>, $spriteContainer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>htmlToElement.js</code> - Convert serialized SVG image text to an HTML element</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// htmlToElement.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">htmlToElement</span>(<span class="params">html</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> template = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</span><br><span class="line">    html = html.trim(); <span class="comment">// Never return a text node of whitespace as the result</span></span><br><span class="line">    template.innerHTML = html;</span><br><span class="line">    <span class="keyword">return</span> template.firstChild;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>icons.js</code> - We are almost there, we just need to include the images in our JS bundle. For that I’ll be using context loading which allows me to import files by a wild card pattern.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// icons.js</span></span><br><span class="line"><span class="keyword">import</span> addSvgImagesAsSprites <span class="keyword">from</span> <span class="string">'../common/helpers/addSvgImagesAsSprites'</span>;</span><br><span class="line"><span class="keyword">import</span> requireContextToValues <span class="keyword">from</span> <span class="string">'../common/helpers/requireContextToValues'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> common = <span class="built_in">require</span>.context(<span class="string">'!svgSprite!../../images/common'</span>, <span class="literal">false</span>, /\.svg$/);</span><br><span class="line"><span class="keyword">const</span> word = <span class="built_in">require</span>.context(<span class="string">'!svgSprite!../../images/common/word'</span>, <span class="literal">false</span>, /\.svg$/);</span><br><span class="line"><span class="keyword">const</span> search = <span class="built_in">require</span>.context(<span class="string">'!svgSprite!../../images/search'</span>, <span class="literal">false</span>, /\.svg$/);</span><br><span class="line"></span><br><span class="line">addSvgImagesAsSprites([</span><br><span class="line">    ...requireContextToValues(common),</span><br><span class="line">    ...requireContextToValues(word),</span><br><span class="line">    ...requireContextToValues(search),</span><br><span class="line">], <span class="string">'icon-'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>You must have noticed the following details:</p>
+<ol>
+<li>Exclamation mark in <code>!svgSprite</code> instructs Webpack to use this loader instead of the ones that are specified in it’s configuration file for files that match the specified pattern.</li>
+<li>Argument <code>icon-</code> is the prefix for SVG identifiers that all SVG elements receive once they are added to the sprite.</li>
+</ol>
+<p><code>requireContextToValues.js</code> Abstracts a call to <code>context()</code> for retrieving objects with the content of the imported SVG files</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// requireContextToValues.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">requireContextToValues</span>(<span class="params">context</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> context.keys().map(<span class="function">(<span class="params">key</span>) =&gt;</span> context(key).default);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="تمام،-از-توجه‌تان-متشکرم"><a href="#تمام،-از-توجه‌تان-متشکرم" class="headerlink" title="تمام، از توجه‌تان متشکرم"></a>تمام، از توجه‌تان متشکرم</h2><p>That is it! I hope you didn’t have to drink a double espresso to get to the end, but I assure you if you did, it wasn’t totally in vein. </p>
+<p>The source code is available on <a href="https://github.com/maqduni/maqduni.github.io/tree/source/samples/embedding-svg-files-in-a-webpack-js-bundle" target="_blank" rel="noopener">my GitHub page</a>.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>You just saw how to include SVG sprites in JS bundles, without extra files, without extra HTTP calls, and without implementing a custom cache. Although this approach requires a certain level of understanding of Webpack, SVG sprites, and the module resolution system of NodeJS, it makes an optimal alternative to existing methods, which implicitly impose certain constraints on the way they can be used which may cause a totally unnecessary comlication of the architecture of your project. Never limit yourself by the existing tools if you have an opportunity to create your own.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://maqduni.github.io/2019/07/16/embedding-svg-files-in-a-webpack-js-bundle/" data-id="ck1u6l7ck0000twes2k8fs2wv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/svg-sprite/">svg sprite</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vazhaju/">vazhaju</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack-loader/">webpack loader</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/svg-sprite/" style="font-size: 10px;">svg sprite</a> <a href="/tags/vazhaju/" style="font-size: 10px;">vazhaju</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/webpack-loader/" style="font-size: 10px;">webpack loader</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/16/embedding-svg-files-in-a-webpack-js-bundle/">Embedding SVG files in a JS bundle using Webpack</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <div class="footer-copyright">&copy; 2019 Iskandar Rafiev</div>
+      <a class="linkedin-icon nav-icon-large" href="https://www.linkedin.com/in/iskandar-rafiev-720b3a39/" title="My LinkedIn page"></a>
+      <a class="stackoverflow-icon nav-icon-large" href="https://stackoverflow.com/users/5053866/maqduni" title="My Stack Overflow page"></a>
+      <a class="github-icon nav-icon-large" href="https://github.com/maqduni" title="Fork me on GitHub"></a>
+      <br>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
