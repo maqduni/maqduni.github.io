@@ -164,7 +164,7 @@ export default function requireContextToValues(context) {
 ```
 
 ## تمام، از توجه‌تان متشکرم
-That is it! I hope you didn't have to drink a double espresso to get to the end, but I assure you if you did, it wasn't totally in vein. 
+That is it! I hope you didn't have to drink a double espresso to get to the end, but I assure you if you did, it wasn't totally in vain. 
 
 The source code is available on [my GitHub page][3].
 
