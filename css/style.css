@@ -177,7 +177,7 @@ body {
   background: #eee;
 }
 .mobile-nav-on #wrap {
-  left: 280px;
+  left: 180px;
 }
 @media screen and (min-width: 768px) {
   #main {
@@ -395,7 +395,7 @@ body {
 .main-nav-link {
   float: left;
   color: #fff;
-  opacity: 0.6;
+  opacity: 0.75;
   text-decoration: none;
   text-shadow: 0 1px rgba(0,0,0,0.2);
   -webkit-transition: opacity 0.2s;
@@ -428,7 +428,6 @@ body {
   padding: 15px 10px;
 }
 .main-nav-link {
-  font-weight: 300;
   letter-spacing: 1px;
 }
 @media screen and (max-width: 479px) {
@@ -1291,7 +1290,7 @@ pre .javascript .function {
     position: absolute;
     top: 0;
     left: 0;
-    width: 280px;
+    width: 180px;
     height: 100%;
     background: #191919;
     border-right: 1px solid #fff;
