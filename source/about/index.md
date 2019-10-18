@@ -1,6 +1,6 @@
 ---
 title: A little about me
-date: 2019-10-15 19:06:37
+comments: false
 ---
 My name is Iskandar Rafiev, I am a full-stack software engineer with 9 years of professional experience in different fields and with different technologies. I am very interested in clean and scalable architectural solutions for front-end and back-end applications.
 

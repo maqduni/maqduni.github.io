@@ -84,3 +84,6 @@ deploy:
   message:
   ignore_hidden:
     public: false
+
+# Comments
+disqus_shortname: maqduni
