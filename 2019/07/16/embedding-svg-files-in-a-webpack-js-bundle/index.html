@@ -7,18 +7,18 @@
   
   <title>Embedding SVG files in a JS bundle using Webpack | Details that Matter</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="The causeRecent issues with the internet in Tajikistan made me think about the loading speed of my online dictionary Vazhaju (Вожаҷӯ / واژه‌جو). As soon as the Tajik government announced that they wou">
+  <meta name="description" content="CauseRecent issues with the internet in Tajikistan made me think about the loading speed of my online dictionary Vazhaju (Вожаҷӯ / واژه‌جو). As soon as the Tajik government announced that they would r">
 <meta name="keywords" content="webpack,webpack loader,svg sprite,vazhaju">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Embedding SVG files in a JS bundle using Webpack">
 <meta property="og:url" content="http://maqduni.github.io/2019/07/16/embedding-svg-files-in-a-webpack-js-bundle/index.html">
 <meta property="og:site_name" content="Details that Matter">
-<meta property="og:description" content="The causeRecent issues with the internet in Tajikistan made me think about the loading speed of my online dictionary Vazhaju (Вожаҷӯ / واژه‌جو). As soon as the Tajik government announced that they wou">
+<meta property="og:description" content="CauseRecent issues with the internet in Tajikistan made me think about the loading speed of my online dictionary Vazhaju (Вожаҷӯ / واژه‌جو). As soon as the Tajik government announced that they would r">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-17T04:08:44.299Z">
+<meta property="og:updated_time" content="2019-10-18T13:08:36.230Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Embedding SVG files in a JS bundle using Webpack">
-<meta name="twitter:description" content="The causeRecent issues with the internet in Tajikistan made me think about the loading speed of my online dictionary Vazhaju (Вожаҷӯ / واژه‌جو). As soon as the Tajik government announced that they wou">
+<meta name="twitter:description" content="CauseRecent issues with the internet in Tajikistan made me think about the loading speed of my online dictionary Vazhaju (Вожаҷӯ / واژه‌جو). As soon as the Tajik government announced that they would r">
   
   
     <link rel="icon" href="/favicon.png">
@@ -94,7 +94,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="The-cause"><a href="#The-cause" class="headerlink" title="The cause"></a>The cause</h2><p>Recent issues with the internet in Tajikistan made me think about the loading speed of my online dictionary <a href="https://vazhaju.com" target="_blank" rel="noopener">Vazhaju (Вожаҷӯ / واژه‌جو)</a>. As soon as the Tajik government announced that they would raise mobile internet prices I rushed to check the loading speed of the site. The speed was high, the site had been tailored for mobile devices, was served using GZIP compression and practically didn’t have anything unnecessary. </p>
+        <h2 id="Cause"><a href="#Cause" class="headerlink" title="Cause"></a>Cause</h2><p>Recent issues with the internet in Tajikistan made me think about the loading speed of my online dictionary <a href="https://vazhaju.com" target="_blank" rel="noopener">Vazhaju (Вожаҷӯ / واژه‌جو)</a>. As soon as the Tajik government announced that they would raise mobile internet prices I rushed to check the loading speed of the site. The speed was high, the site had been tailored for mobile devices, was served using GZIP compression and practically didn’t have anything unnecessary. </p>
 <p>But then I noticed an interesting detail, the actual size of the content didn’t exceed 7kb, whereas every page in it’s compressed form took at least 12kb, and the uncompressed form took around 24kb. Not such a tiny size for so little content, isn’t it. This size inflation was caused by the SVG images that were added in their entirety to the main template on each page serving.</p>
 <h3 id="A-little-bit-on-the-architecture"><a href="#A-little-bit-on-the-architecture" class="headerlink" title="A little bit on the architecture"></a>A little bit on the architecture</h3><p>The front end is structured as a set of independent micro applications, aka micro front ends. There’s one for public users, one for admins, one for editors, etc, therefore,</p>
 <ol>
@@ -142,14 +142,14 @@
 <p><code>requireContextToValues.js</code> Abstracts a call to <code>context()</code> for retrieving objects with the content of the imported SVG files</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// requireContextToValues.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">requireContextToValues</span>(<span class="params">context</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> context.keys().map(<span class="function">(<span class="params">key</span>) =&gt;</span> context(key).default);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="تمام،-از-توجه‌تان-متشکرم"><a href="#تمام،-از-توجه‌تان-متشکرم" class="headerlink" title="تمام، از توجه‌تان متشکرم"></a>تمام، از توجه‌تان متشکرم</h2><p>That is it! I hope you didn’t have to drink a double espresso to get to the end, but I assure you if you did, it wasn’t totally in vain. </p>
+<h2 id="همش-همین،-از-توجه‌تان-سپاس"><a href="#همش-همین،-از-توجه‌تان-سپاس" class="headerlink" title="همش همین، از توجه‌تان سپاس"></a>همش همین، از توجه‌تان سپاس</h2><p>That is it! I hope you didn’t have to drink a double espresso to get to the end, but I assure you if you did, it wasn’t totally in vain. </p>
 <p>The source code is available on <a href="https://github.com/maqduni/maqduni.github.io/tree/source/samples/embedding-svg-files-in-a-webpack-js-bundle" target="_blank" rel="noopener">my GitHub page</a>.</p>
 <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>You just saw how to include SVG sprites in JS bundles, without extra files, without extra HTTP calls, and without implementing a custom cache. Although this approach requires a certain level of understanding of Webpack, SVG sprites, and the module resolution system of NodeJS, it makes an optimal alternative to existing methods, which implicitly impose certain constraints on the way they can be used which may cause a totally unnecessary comlication of the architecture of your project. Never limit yourself by the existing tools if you have an opportunity to create your own.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://maqduni.github.io/2019/07/16/embedding-svg-files-in-a-webpack-js-bundle/" data-id="ck1vvwfzd000076esb9so85r5" class="article-share-link">Share</a>
+      <a data-url="http://maqduni.github.io/2019/07/16/embedding-svg-files-in-a-webpack-js-bundle/" data-id="ck1w5imb20000hxeskxhotnw7" class="article-share-link">Share</a>
       
         <a href="http://maqduni.github.io/2019/07/16/embedding-svg-files-in-a-webpack-js-bundle/#disqus_thread" class="article-comment-link">Comments</a>
       
