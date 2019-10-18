@@ -16,10 +16,10 @@ generate_watch:
 	hexo clean
 	hexo generate --watch
 
-dev_watch:
+watch:
 	hexo clean
 	hexo server -i 0.0.0.0 -p 4000 --draft
-dev_serve_public:
+serve_docs:
 	hexo server -s
 
 deploy:

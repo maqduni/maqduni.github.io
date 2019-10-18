@@ -12,7 +12,7 @@ tags:
 [2]: https://css-tricks.com/css-sprites/#article-header-id-0
 [3]: https://github.com/maqduni/maqduni.github.io/tree/source/samples/embedding-svg-files-in-a-webpack-js-bundle
 
-## The cause
+## Cause
 
 Recent issues with the internet in Tajikistan made me think about the loading speed of my online dictionary [Vazhaju (Вожаҷӯ / واژه‌جو)][1]. As soon as the Tajik government announced that they would raise mobile internet prices I rushed to check the loading speed of the site. The speed was high, the site had been tailored for mobile devices, was served using GZIP compression and practically didn't have anything unnecessary. 
 
@@ -163,7 +163,7 @@ export default function requireContextToValues(context) {
 }
 ```
 
-## تمام، از توجه‌تان متشکرم
+## همش همین، از توجه‌تان سپاس
 That is it! I hope you didn't have to drink a double espresso to get to the end, but I assure you if you did, it wasn't totally in vain. 
 
 The source code is available on [my GitHub page][3].
