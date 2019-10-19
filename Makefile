@@ -9,21 +9,21 @@ test:
 install:
 	npm install
 
-generate:
-	hexo clean
-	hexo generate
-generate_watch:
-	hexo clean
-	hexo generate --watch
-
 watch:
 	hexo clean
 	hexo server -i 0.0.0.0 -p 4000 --draft
+
+generate:
+	hexo clean
+	mkdir ./docs
+	cp -av ./favicon/* ./docs
+	echo $(CNAME) >> ./docs/CNAME
+	hexo generate $(CMD)
+generate_watch:
+	make generate CMD="--watch"
 serve_docs:
 	hexo server -s
 
 deploy:
-	hexo clean
-	hexo generate
-	echo $(CNAME) >> docs/CNAME
+	make generate
 	hexo deploy
