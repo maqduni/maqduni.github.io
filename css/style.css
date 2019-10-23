@@ -130,7 +130,7 @@ body {
 .outer {
   max-width: 1220px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 5px;
 }
 .outer:before,
 .outer:after {
@@ -139,6 +139,11 @@ body {
 }
 .outer:after {
   clear: both;
+}
+@media screen and (max-width: 479px) {
+  .outer {
+    padding: 0 5px;
+  }
 }
 .inner {
   display: inline;
@@ -336,6 +341,7 @@ body {
 #header-outer {
   height: 100%;
   position: relative;
+  padding: 0 20px;
 }
 #header-inner {
   position: relative;
@@ -363,7 +369,7 @@ body {
 }
 @media screen and (max-width: 479px) {
   #header-title {
-    margin-top: -30px;
+    margin-top: -25px;
   }
 }
 #logo,
@@ -377,6 +383,11 @@ body {
   font-size: 40px;
   line-height: 40px;
   letter-spacing: 2px;
+}
+@media screen and (max-width: 479px) {
+  #logo {
+    font-size: 30px;
+  }
 }
 #subtitle {
   font-size: 16px;
@@ -526,7 +537,7 @@ body {
   color: #777;
 }
 .article {
-  margin: 50px 0;
+  margin: 30px 0;
 }
 .article-inner {
   overflow: hidden;
@@ -771,7 +782,7 @@ a.article-title:hover {
 }
 @media screen and (min-width: 768px) {
   #article-nav {
-    margin: 50px 0;
+    margin: 30px 0;
   }
   #article-nav:before {
     width: 8px;
@@ -795,7 +806,7 @@ a.article-title:hover {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  margin-top: 50px;
+  margin-top: 30px;
   text-align: center;
   display: block;
 }
@@ -969,13 +980,13 @@ a.article-title:hover {
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 3px;
-  margin: 50px 0;
+  margin: 30px 0;
 }
 #comments a {
   color: #258fb8;
 }
 .archives-wrap {
-  margin: 50px 0;
+  margin: 30px 0;
 }
 .archives:before,
 .archives:after {
@@ -1042,7 +1053,7 @@ a.article-title:hover {
   display: block;
 }
 #page-nav {
-  margin: 50px auto;
+  margin: 30px auto;
   background: #fff;
   -webkit-box-shadow: 1px 2px 3px #ddd;
   box-shadow: 1px 2px 3px #ddd;
@@ -1317,7 +1328,7 @@ pre .javascript .function {
   }
 }
 .widget-wrap {
-  margin: 50px 0;
+  margin: 30px 0;
 }
 .widget {
   color: #777;
