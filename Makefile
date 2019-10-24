@@ -16,7 +16,7 @@ watch:
 generate:
 	hexo clean
 	mkdir ./docs
-	cp -av ./favicon/* ./docs
+	rsync -av ./favicon/* ./docs --exclude='originals' --exclude="Thumbs.db"
 	echo $(CNAME) >> ./docs/CNAME
 	hexo generate $(CMD)
 generate_watch:

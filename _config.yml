@@ -87,3 +87,8 @@ deploy:
 
 # Comments
 disqus_shortname: maqduni
+
+# Sitemap
+sitemap:
+  path: sitemap.xml
+  rel: true
