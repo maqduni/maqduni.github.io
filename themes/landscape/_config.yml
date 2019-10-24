@@ -33,7 +33,7 @@ archive_type: 'monthly'
 show_count: false
 
 # Miscellaneous
-google_analytics:
+google_analytics: UA-150897451-1 # TODO: Find out how to move settings like this to .env
 gauges_analytics:
 favicon: /favicon.ico
 twitter:
