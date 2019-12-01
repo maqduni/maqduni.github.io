@@ -240,9 +240,6 @@ return [
             'APP_KEY',
             'DB_PASSWORD',
             'MAIL_PASSWORD',
-            'PROD_USER',
-            'PROD_HOST',
-            'PROD_FOLDER',
         ],
 
         '_SERVER' => [
